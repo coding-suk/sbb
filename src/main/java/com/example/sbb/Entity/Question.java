@@ -16,7 +16,7 @@ public class Question {
     private Integer id;
 
     @Column(length = 200)
-    private String sbject;
+    private String subject;
 
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -25,4 +25,5 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
 }
