@@ -1,5 +1,6 @@
 package com.example.sbb.Controller;
 
+import com.example.sbb.Service.QuestionService;
 import org.springframework.ui.Model;
 import com.example.sbb.Entity.Question;
 import com.example.sbb.Repository.QuestionRepository;
@@ -14,12 +15,12 @@ import java.util.List;
 @Controller
 public class QuestionController {
 
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
     @GetMapping("/question/list")
     //@ResponseBody
     public String list(Model model) {
-        List<Question> questionList = this.questionRepository.findAll();
+        List<Question> questionList = this.questionService.getList();
         model.addAttribute("questionList", questionList);
         return "question_list";
     }
