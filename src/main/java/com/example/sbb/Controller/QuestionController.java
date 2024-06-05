@@ -7,10 +7,7 @@ import com.example.sbb.Entity.Question;
 import com.example.sbb.Repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,4 +43,11 @@ public class QuestionController {
             throw new DataNotFoundException("question not found");
         }
     }
+
+    @GetMapping("/create")
+    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+        this.questionService.create(subject, content);
+        return "redirect:/question/list";
+    }
+
 }
