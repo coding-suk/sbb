@@ -46,6 +46,11 @@ public class QuestionController {
         }
     }
 
+    @GetMapping("/create")
+    public String questionCreate() {
+        return "question_form";
+    }
+
     @PostMapping("/create")
     public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
         this.questionService.create(subject, content);
