@@ -1,9 +1,14 @@
 package com.example.sbb.Controller;
 
+import com.example.sbb.Form.QuestionForm;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.sbb.Exception.DataNotFoundException;
 import com.example.sbb.Service.QuestionService;
+
 import org.springframework.ui.Model;
 import com.example.sbb.Entity.Question;
 import com.example.sbb.Repository.QuestionRepository;
@@ -47,13 +52,16 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    public String questionCreate() {
+    public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
 
     @PostMapping("/create")
-    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
-        this.questionService.create(subject, content);
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "question_form";
+        }
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list";
     }
 }
